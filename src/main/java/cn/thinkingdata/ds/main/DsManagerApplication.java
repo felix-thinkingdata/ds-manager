@@ -1,8 +1,14 @@
 package cn.thinkingdata.ds.main;
 
 
+import cn.thinkingdata.ds.services.DsAdminServices;
+import cn.thinkingdata.ds.services.DsAutoInstallAndUpdateService;
+import cn.thinkingdata.ds.services.MysqlAdminService;
+import cn.thinkingdata.ds.services.SystemInitService;
+import cn.thinkingdata.ds.services.ZookeeperAdminService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -29,21 +35,25 @@ public class DsManagerApplication implements CommandLineRunner {
 
     private static final Logger consoleLog = LoggerFactory.getLogger(DsManagerApplication.class);
 
+    @Autowired
+    DsAdminServices dsAdminServices;
+
+    @Autowired
+    DsAutoInstallAndUpdateService dsAutoInstallAndUpdateService;
+
+    @Autowired
+    MysqlAdminService mysqlAdminService;
+
+    @Autowired
+    SystemInitService systemInitService;
+
+    @Autowired
+    ZookeeperAdminService zookeeperAdminService;
+
     public static void main(String[] args) {
         try {
             SpringApplication app = new SpringApplication(DsManagerApplication.class);
             app.setBannerMode(Banner.Mode.OFF);
-            /**
-             * @describe: 在后台运行任务时，生成pid文件
-             */
-            if (args.length > 2) {
-                if (args[1].startsWith("background_")) {
-                    Map<String, Object> defaultProperties = new HashMap<>(1);
-                    defaultProperties.put("spring.pid.file", "../ta-tool.pid");
-                    app.setDefaultProperties(defaultProperties);
-                    app.addListeners(new ApplicationPidFileWriter());
-                }
-            }
             app.run(args);
         } catch (Exception e) {
             consoleLog.error("init error ", e);
@@ -65,7 +75,7 @@ public class DsManagerApplication implements CommandLineRunner {
      * @Author: Felix.Wang
      * @Date: 2019/11/5 10:00
      */
-    private void init(String... args)   {
+    private void init(String... args) {
 
     }
 
