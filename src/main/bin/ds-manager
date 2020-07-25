@@ -1,0 +1,9 @@
+#!/bin/bash
+export LANG="en_US.UTF-8"
+
+bin=$(which "$0")
+bin=$(dirname "$bin")
+work_base=$(cd $bin/..; pwd)
+
+java -Dlog.path=$work_base/log -jar $work_base/ds-manager.jar  "$@"
+
