@@ -103,13 +103,12 @@ public class DsManagerApplication implements CommandLineRunner {
         Option hostOption = Option.builder("s").longOpt("host").argName("hostname").required(false).hasArg(true).desc("指定服务器").build();
         options.addOption(hostOption);
     }
-
     /**
-     * 初始化命令
-     *
-     * @Author: Felix.Wang
-     * @Date: 2019/11/5 10:00
-     */
+     * describe: TODO
+     * creat_user: felix@thinkingdata.cn
+     * creat_date: 2020/7/25
+     * creat_time: 9:31 下午
+     **/
     private void init(String... args) throws ParseException, IOException {
         initCommandOptions();
         if (args == null || args.length < 1) {
